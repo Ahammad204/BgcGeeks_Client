@@ -27,6 +27,7 @@ body {
   );
   animation: changeBackgroundColor 8s infinite alternate;
 }
+
 @keyframes changeBackgroundColor {
   0%,
   100% {
