@@ -5,7 +5,7 @@ import { BiSearch } from "react-icons/bi";
 type Props = {};
 const Hero: FC<Props> = (props) => {
   return (
-    <div className="w-full mb-4 flex md:flex-row flex-col items-center hero_animation">
+    <div className="w-full mb-4 flex md:flex-row flex-col items-center ">
       <div className="2xl:w-[40%] flex 2xl:min-h-screen items-center justify-end pt-[70px] 2xl:pt-[0] z-10 ">
         <Image
           src={require("../../../public/assets/banner.png")}

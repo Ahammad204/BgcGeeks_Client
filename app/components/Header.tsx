@@ -4,13 +4,17 @@ import React, { FC, useState } from "react";
 import NavItems from "../utils/Navitems";
 import { ThemeSwitcher } from "../utils/ThemeSwitcher";
 import { HiOutlineMenuAlt3, HiOutlineUserCircle } from "react-icons/hi";
+import CustomModal from "../utils/CustomModel";
+import Login from "./Auth/Login";
 type Props = {
   open: boolean;
   setOpen: (open: boolean) => void;
   activeItem: number;
+  route: string;
+  setRoute: (route: string) => void;
 };
 
-const Header: FC<Props> = ({ activeItem, setOpen }) => {
+const Header: FC<Props> = ({ activeItem, setOpen, route, open,setRoute }) => {
   const [active, setActive] = useState(false);
   const [openSidebar, setOpenSidebar] = useState(false);
 
@@ -61,8 +65,6 @@ const Header: FC<Props> = ({ activeItem, setOpen }) => {
                   className="cursor-pointer dark:text-white text-black"
                   onClick={() => setOpenSidebar(true)}
                 ></HiOutlineMenuAlt3>
-              
-          
               </div>
               <HiOutlineUserCircle
                 size={25}
@@ -96,6 +98,19 @@ const Header: FC<Props> = ({ activeItem, setOpen }) => {
           </div>
         )}
       </div>
+      {route === "Login" && (
+        <>
+          {open && (
+            <CustomModal
+              open={open}
+              setOpen={setOpen}
+              setRoute={setRoute}
+              activeItem={activeItem}
+              component={Login}
+            ></CustomModal>
+          )}
+        </>
+      )}
     </div>
   );
 };
