@@ -16,6 +16,18 @@
   }
 }
 
+/* Chrome, Safari,Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
 body {
   color: rgb(var(--foreground-rgb));
 }
@@ -54,4 +66,29 @@ body {
   .text-balance {
     text-wrap: balance;
   }
+}
+
+@keyframes shake {
+  0% {
+    transform: translatex(0);
+  }
+  20% {
+    transform: translatex(-2px);
+  }
+  40% {
+    transform: translatex(2px);
+  }
+  60% {
+    transform: translatex(-2px);
+  }
+  80% {
+    transform: translatex(2px);
+  }
+  100% {
+    transform: translatex(0);
+  }
+}
+
+.shake {
+  animation: shake 0.5s ease-in-out;
 }
