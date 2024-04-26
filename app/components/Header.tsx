@@ -6,6 +6,7 @@ import { ThemeSwitcher } from "../utils/ThemeSwitcher";
 import { HiOutlineMenuAlt3, HiOutlineUserCircle } from "react-icons/hi";
 import CustomModal from "../utils/CustomModel";
 import Login from "./Auth/Login";
+import SignUp from "./Auth/SignUp";
 type Props = {
   open: boolean;
   setOpen: (open: boolean) => void;
@@ -14,7 +15,7 @@ type Props = {
   setRoute: (route: string) => void;
 };
 
-const Header: FC<Props> = ({ activeItem, setOpen, route, open,setRoute }) => {
+const Header: FC<Props> = ({ activeItem, setOpen, route, open, setRoute }) => {
   const [active, setActive] = useState(false);
   const [openSidebar, setOpenSidebar] = useState(false);
 
@@ -107,6 +108,20 @@ const Header: FC<Props> = ({ activeItem, setOpen, route, open,setRoute }) => {
               setRoute={setRoute}
               activeItem={activeItem}
               component={Login}
+            ></CustomModal>
+          )}
+        </>
+      )}
+
+      {route === "Sign-Up" && (
+        <>
+          {open && (
+            <CustomModal
+              open={open}
+              setOpen={setOpen}
+              setRoute={setRoute}
+              activeItem={activeItem}
+              component={SignUp}
             ></CustomModal>
           )}
         </>
