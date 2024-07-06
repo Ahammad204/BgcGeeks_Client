@@ -28,8 +28,9 @@ const page: FC<Props> = (props: Props) => {
           activeItem={activeItem}
           setRoute={setRoute}
           route={route}
+          
         ></Header>
-        <Profile></Profile>
+        <Profile user={user}></Profile>
       </Protected>
     </div>
   );
