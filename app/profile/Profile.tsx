@@ -4,27 +4,24 @@ import sideBarProfile from "./sideBarProfile";
 import SideBarProfile from "./sideBarProfile";
 import { useLogOutQuery } from "@/redux/features/auth/authApi";
 import { signOut } from "next-auth/react";
-import { redirect } from "next/navigation";
+import ProfileInfo from "./ProfileInfo";
 
 type Props = {
   user: any;
 };
 const Profile: FC<Props> = ({ user }) => {
   const [scroll, setScroll] = useState(false);
-  const [avatar,setAvatar] = useState(null);
-  const [active,setActive] = useState(1);
-  const [logout,setLogout] = useState(false);
-  const { } = useLogOutQuery(undefined,{
+  const [avatar, setAvatar] = useState(null);
+  const [active, setActive] = useState(1);
+  const [logout, setLogout] = useState(false);
+  const {} = useLogOutQuery(undefined, {
     skip: !logout ? true : false,
   });
 
-  const logOutHandler = async() => {
-
-    signOut();
+  const logOutHandler = async () => {
     setLogout(true);
-    redirect("/");
-
-  }
+    await signOut();
+  };
 
   if (typeof window !== "undefined") {
     window.addEventListener("scroll", () => {
@@ -51,6 +48,11 @@ const Profile: FC<Props> = ({ user }) => {
           logOutHandler={logOutHandler}
         ></SideBarProfile>
       </div>
+      {active === 1 && (
+        <div className="w-full h-full bg-transparent mt-[80px]">
+            <ProfileInfo avatar={avatar} user={user}></ProfileInfo>
+        </div>
+      )}
     </div>
   );
 };
