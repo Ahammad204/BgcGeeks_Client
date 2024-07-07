@@ -3,8 +3,12 @@ import React, { FC, useEffect, useState } from "react";
 import avatarIcon from "../../public/assets/user.png";
 import { AiOutlineCamera } from "react-icons/ai";
 import { styles } from "../styles/style";
-import { useUpdateAvatarMutation } from "@/redux/features/user/userApi";
+import {
+  useEditProfileMutation,
+  useUpdateAvatarMutation,
+} from "@/redux/features/user/userApi";
 import { useLoadUserQuery } from "@/redux/features/api/apiSlice";
+import toast from "react-hot-toast";
 
 type Props = {
   avatar: string | null;
@@ -14,33 +18,44 @@ type Props = {
 const ProfileInfo: FC<Props> = ({ avatar, user }) => {
   const [name, setName] = useState(user && user.name);
   const [updateAvatar, { isSuccess, error }] = useUpdateAvatarMutation();
-  const [loadUser,setLoadUser] = useState(false);
-  const {} = useLoadUserQuery(undefined,{skip: loadUser ? false: true})
+  const [editProfile, { isSuccess: success, error: updateError }] =
+    useEditProfileMutation();
+  const [loadUser, setLoadUser] = useState(false);
+  const {} = useLoadUserQuery(undefined, { skip: loadUser ? false : true });
 
+  // Handle Update Image
   const imageHandler = async (e: any) => {
     const fileReader = new FileReader();
 
     fileReader.onload = () => {
       if (fileReader.readyState === 2) {
         const avatar = fileReader.result;
-        updateAvatar(
-          avatar,
-        );
+        updateAvatar(avatar);
       }
     };
     fileReader.readAsDataURL(e.target.files[0]);
   };
 
-  useEffect(()=> {
-    if(isSuccess) {
-        setLoadUser(true)
+  useEffect(() => {
+    if (isSuccess || success) {
+      setLoadUser(true);
     }
-    if(error){
-        console.log(error)
+    if (error || updateError) {
+      console.log(error);
     }
-  },[error, isSuccess])
+    if (isSuccess || success) {
+      toast.success("Profile Updated Successfully");
+    }
+  }, [error, isSuccess, success, updateError]);
 
-  const handleSubmit = async (e: any) => {};
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+    if (name !== "") {
+      await editProfile({
+        name: name,
+      });
+    }
+  };
   return (
     <>
       <div className="w-full flex justify-center">
@@ -49,14 +64,13 @@ const ProfileInfo: FC<Props> = ({ avatar, user }) => {
             src={user.avatar || avatar ? user.avatar.url || avatar : avatarIcon}
             alt="avatar"
             width={120}
-            height = {120}
+            height={120}
             className="w-[120px] h-[120px] cursor-pointer border-[3px] border-[#37a39a] rounded-full"
           ></Image>
           <input
             type="file"
             name=""
             id="avatar"
-            
             className="hidden"
             onChange={imageHandler}
             accept="image/png,image/jpg,image/jpeg,image/webp,image/gif"
