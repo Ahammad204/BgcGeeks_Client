@@ -21,6 +21,14 @@ const josefin = Josefin_Sans({
   variable: "--font--Josefin",
 });
 
+// export const metadata ={
+//   icons:{
+//     icon:['favicon.ico?v=4'],
+//     apple:['/apple-touch-icon.png?v=4'],
+//     shortcut:['/apple-touch-icon.png']
+//   }
+// }
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -31,6 +39,7 @@ export default function RootLayout({
       <body
         className={`${poppins.variable}${josefin.variable} !bg-white bg-no-repeat dark:bg-gradient-to-b dark:from-gray-900 dark:to-black duration-300`}
       >
+        <link rel="icon" href="../" sizes="any" />
         <Providers>
           <SessionProvider>
             <ThemeProvider attribute="class" defaultTheme="system" enableSystem>

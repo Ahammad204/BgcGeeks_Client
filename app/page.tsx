@@ -3,6 +3,7 @@ import React, { FC, useState } from "react";
 import Heading from "./utils/Heading";
 import Header from "./components/Header";
 import Hero from "./components/Route/Hero";
+import Head from "next/head";
 
 interface Props {}
 
@@ -13,6 +14,9 @@ const Page: FC<Props> = (props) => {
 
   return (
     <div>
+      <Head>
+      <link rel="icon" href="/favicon.ico" />
+      </Head>
       <Heading
         title="BGC Geeks"
         description="BGCGeeks is a platform for students to learn and get help from from teachers"
