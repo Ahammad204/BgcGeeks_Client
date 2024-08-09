@@ -198,8 +198,9 @@ const Sidebar = () => {
             ></Item>
             <Typography
               variant="h5"
-              className="!text-[10px] text-black dark:text-[#ffffffc1] capitalize !font-[400]"
+             
               sx={{ m: "15px 0 5px 20px" }}
+               className="!text-[18px] text-black dark:text-[#ffffffc1] capitalize !font-[400]"
             >
               {!isCollapsed && "Content"}
             </Typography>
@@ -308,8 +309,8 @@ const Sidebar = () => {
             <div onClick={logoutHandler}>
             <Item
               title="Logout"
-              to="/admin/settings"
-              icon={<SettingsIcon />}
+              to="/admin/logout"
+              icon={<ExitToAppIcon />}
               selected={selected}
               setSelected={setSelected}
             ></Item>
