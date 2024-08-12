@@ -5,9 +5,10 @@ import toast from "react-hot-toast";
 
 type Props = {
   benefits: { title: string }[];
-  setBenefits: (benefits: { title: string }[]) => void;
+  setBenefits: (benefits: { title:string }[]) => void;
   prerequisites: { title: string }[];
-  setPrerequisites: { title: string }[];
+  // setPrerequisites: { title:string }[];
+  setPrerequisites: (prerequisites: { title:string }[]) => void;
   active: number;
   setActive: (active: number) => void;
 };

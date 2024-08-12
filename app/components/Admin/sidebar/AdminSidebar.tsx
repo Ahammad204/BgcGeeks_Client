@@ -161,7 +161,7 @@ const AdminSidebar = () => {
                   className="!text-[20px] text-black dark:text-[#ffffffc1] capitalize"
                 >
                   {" "}
-                  - {user?.role}
+                  ~ {user?.role}
                 </Typography>
               </Box>
             </Box>
