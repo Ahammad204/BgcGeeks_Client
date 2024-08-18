@@ -2,40 +2,27 @@ import React from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import { Box, Button } from "@mui/material";
 import { AiOutlineDelete } from "react-icons/ai";
+import { AiOutlineMail } from "react-icons/ai";
 import { useTheme } from "next-themes";
-import { FiEdit2 } from "react-icons/fi";
-import { useGetAllCoursesQuery } from "@/redux/features/courses/coursesApi";
 import Loader from "@/app/components/Loader/Loader";
 import {format} from "timeago.js"
+import { useGetAllUsersQuery } from "@/redux/features/user/userApi";
 
 type Props = {};
 
-const AllCourses = (props: Props) => {
+const AllUsers = (props: Props) => {
   const { theme, setTheme } = useTheme();
 
-  const { isLoading, data, error } = useGetAllCoursesQuery({});
+  const { isLoading, data, error } = useGetAllUsersQuery({});
 
   const columns = [
-    { field: "id",  headerClassName: 'super-app-theme--header', headerName: "ID", flex: 0.5 },
-    { field: "title",  headerClassName: 'super-app-theme--header', headerName: "Course Title", flex: 1 },
-    { field: "ratings",  headerClassName: 'super-app-theme--header', headerName: "Ratings", flex: 0.5 },
-    { field: "purchased",  headerClassName: 'super-app-theme--header', headerName: "Purchased", flex: 0.5 },
+  
+    { field: "id",  headerClassName: 'super-app-theme--header', headerName: "ID", flex: 0.3 },
+    { field: "name",  headerClassName: 'super-app-theme--header', headerName: "Name", flex: .5 },
+    { field: "email",  headerClassName: 'super-app-theme--header', headerName: "E-mail", flex: 0.5 },
+    { field: "role",  headerClassName: 'super-app-theme--header', headerName: "Role", flex: 0.2 },
+    { field: "courses",  headerClassName: 'super-app-theme--header', headerName: "Purchased Courses", flex: .5 },
     { field: "created_at",  headerClassName: 'super-app-theme--header', headerName: "Created At", flex: 0.5 },
-    {
-      field: "  ",
-      headerClassName: 'super-app-theme--header',
-      headerName: "Edit",
-      flex: 0.2,
-      renderCell: (params: any) => {
-        return (
-          <>
-            <Button>
-              <FiEdit2 className="text-black dark:text-white" size={20} />
-            </Button>
-          </>
-        );
-      },
-    },
     {
       field: " ",
       headerName: "Delete",
@@ -54,16 +41,39 @@ const AllCourses = (props: Props) => {
         );
       },
     },
+    {
+      field: "  ",
+      headerName: "Email",
+      headerClassName: 'super-app-theme--header',
+      flex: 0.2,
+      renderCell: (params: any) => {
+        return (
+          <>
+            <a
+            href={`mailto:${params.row.email}`}
+            target="_blank"
+            
+            >
+              <AiOutlineMail
+                className="text-black dark:text-white"
+                size={20}
+              />
+            </a>
+          </>
+        );
+      },
+    },
   ];
   const rows:any = [];
   {
     data &&
-      data.courses.forEach((item: any) => {
+      data.users.forEach((item: any) => {
         rows.push({
           id: item._id,
-          title: item.name,
-          ratings: item.ratings,
-          purchased: item.purchased,
+          name: item.name,
+          email: item.email,
+          role: item.role,
+          courses: item.courses.length,
           created_at: format(item.createdAt),
         });
       });
@@ -118,9 +128,9 @@ const AllCourses = (props: Props) => {
                 borderTop: "none",
                 backgroundColor: theme === "dark" ? "#3e4396" : "#A4A9FC",
               },
-              "& .MuiCheckbox-root": {
+              "& .MuiCheckbox-root ": {
                 color:
-                  theme === "dark" ? `#b7ebde !important` : `#000 !important`,
+                  theme === "dark" ? `#b7ebde!important` : `#000!important`,
               },
               "& .MuiDataGrid-toolbarContainer .MuiButton-text": {
                 color: `#000 !important`,
@@ -135,4 +145,4 @@ const AllCourses = (props: Props) => {
   );
 };
 
-export default AllCourses;
+export default AllUsers;
