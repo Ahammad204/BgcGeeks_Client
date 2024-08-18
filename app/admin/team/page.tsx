@@ -25,7 +25,7 @@ const page = (props: Props) => {
           </div>
           <div className="w-[85%] ">
             <DashboardHero></DashboardHero>
-            <AllUsers isTeam={false}/>
+            <AllUsers isTeam={true}/>
           </div>
         </div>
         
