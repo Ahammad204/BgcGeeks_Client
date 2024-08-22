@@ -43,7 +43,7 @@ input[type="number"] {
 body {
   color: rgb(var(--foreground-rgb));
 }
-.hero_animation {
+/* .hero_animation {
   background-image: linear-gradient(
     147.92deg,
     hsla(239, 76%, 53%, 0.456) 10.41%,
@@ -72,7 +72,38 @@ body {
   83.33% {
     opacity: 0.4;
   }
+} */
+.hero_animation {
+  background-image: linear-gradient(
+    147.92deg,
+    hsla(239, 76%, 53%, 0.8) 10.41%,
+    hsla(0, 0%, 100%, 0) 89.25%
+  );
+  animation: changeBackgroundOpacity 8s infinite alternate;
 }
+
+@keyframes changeBackgroundOpacity {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  16.67% {
+    opacity: 0.9;
+  }
+  33.33% {
+    opacity: 0.8;
+  }
+  50% {
+    opacity: 0.6;
+  }
+  66.67% {
+    opacity: 0.5;
+  }
+  83.33% {
+    opacity: 0.4;
+  }
+}
+
 
 @layer utilities {
   .text-balance {
@@ -103,4 +134,19 @@ body {
 
 .shake {
   animation: shake 0.5s ease-in-out;
+}
+
+/* Hide scrollbar for WebKit browsers (Chrome, Safari, etc.) */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for Firefox */
+.scrollbar-hide {
+  scrollbar-width: none; /* Firefox */
+}
+
+/* General class to hide scrollbars */
+.scrollbar-hide {
+  -ms-overflow-style: none; /* IE and Edge */
 }

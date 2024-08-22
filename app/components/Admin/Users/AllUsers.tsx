@@ -323,16 +323,38 @@ const AllUsers: FC<Props> = ({ isTeam }) => {
       <Dialog
         open={confirmDialogOpen}
         onClose={handleCloseConfirmDialog}
+        sx={{
+          "& .MuiDialog-paper": {
+            backgroundColor: theme === "dark" ? "#2E3B4E" : "#FFFFFF", // Background color for the dialog
+            color: theme === "dark" ? "#FFFFFF" : "#000000", // Text color for the dialog
+          },
+        }}
       >
-        <DialogTitle>Confirm Deletion</DialogTitle>
+        <DialogTitle >Confirm Deletion</DialogTitle>
         <DialogContent>
-          <Typography>Are you sure you want to delete this course?</Typography>
+          <Typography>Are you sure you want to delete this user?</Typography>
         </DialogContent>
-        <DialogActions>
-          <Button onClick={handleCloseConfirmDialog} color="primary">
+        <DialogActions
+         sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          backgroundColor: theme === "dark" ? "#3E4C6C" : "#F0F0F0",
+        }}
+        >
+           <Button
+            onClick={handleCloseConfirmDialog}
+            sx={{
+              color: theme === "dark" ? "#FFDDC1" : "#FF5722",
+            }}
+          >
             Cancel
           </Button>
-          <Button onClick={handleConfirmDelete} color="secondary">
+          <Button
+            onClick={handleConfirmDelete}
+            sx={{
+              color: theme === "dark" ? "#FFDDC1" : "#FF5722",
+            }}
+          >
             Confirm
           </Button>
         </DialogActions>
