@@ -49,6 +49,7 @@ const EditCourse:FC<Props> = ({id}) => {
           estimatedPrice: editCourseData?.estimatedPrice,
           tags: editCourseData?.tags,
           level: editCourseData?.level,
+          categories: editCourseData?.categories,
           demoUrl: editCourseData?.demoUrl,
           thumbnail: editCourseData?.thumbnail?.url,
       })
@@ -65,6 +66,7 @@ const EditCourse:FC<Props> = ({id}) => {
     estimatedPrice: "",
     tags: "",
     level: "",
+    categories:"",
     demoUrl: "",
     thumbnail: "",
   });
@@ -76,6 +78,7 @@ const EditCourse:FC<Props> = ({id}) => {
       title: "",
       description: "",
       videoSection: "Untitled Section",
+      videoLength:"",
       links: [
         {
           title: "",
@@ -119,6 +122,7 @@ const EditCourse:FC<Props> = ({id}) => {
       estimatedPrice: courseInfo.estimatedPrice,
       tags: courseInfo.tags,
       thumbnail: courseInfo.thumbnail,
+      categories: courseInfo.categories,
       level: courseInfo.level,
       demoUrl: courseInfo.demoUrl,
       totalVideos: courseContentData.length,

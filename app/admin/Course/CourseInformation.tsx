@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
+import { useGetHeroDataQuery } from "@/redux/features/layout/layoutApi";
 import { styles } from "../../../app/styles/style";
-import React, { FC, useState } from "react";
+import React, { FC, useState,useEffect } from "react";
 
 type Props = {
   courseInfo: any;
@@ -16,6 +17,14 @@ const CourseInformation: FC<Props> = ({
   setActive,
 }) => {
   const [dragging, setDragging] = useState(false);
+  const { data } = useGetHeroDataQuery("Categories");
+  const [categories,setCategories] = useState([]);
+  
+  useEffect(()=>{
+    if(data){
+      setCategories(data.layout.categories)
+    }
+  },[data])
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
@@ -129,7 +138,8 @@ const CourseInformation: FC<Props> = ({
           </div>
         </div>
         <br />
-        <div>
+        <div className="w-full flex justify-between ">
+          <div className="w-[45%]">
           <label className={`${styles.label}`} htmlFor="email">
             Course Tags
           </label>
@@ -147,7 +157,28 @@ const CourseInformation: FC<Props> = ({
               ${styles.input}
               `}
           />
+          </div>
+          <div className="w-[50%]">
+            <label className={`${styles.label} w-[50%]`}>Course Categories</label>
+           <select
+            name="" 
+            id="" 
+            className={`${styles.input} `}
+            value={courseInfo.categories}
+            onChange={(e:any)=> 
+              setCourseInfo({ ...courseInfo,categories: e.target.value})
+            }
+            >
+              <option className="dark:bg-[#0b1019]" value=""> Select Category</option>
+              {categories.map((item:any)=> (
+                <option className="dark:bg-[#0b1019]" value={item.title} key={item._id}>
+                  {item.title}
+                </option>
+              ))}
+           </select>
+          </div>
         </div>
+       
         <br />
         <div className="w-full flex justify-between ">
           <div className="w-[45%]">
