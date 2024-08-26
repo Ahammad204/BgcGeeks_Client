@@ -53,7 +53,7 @@ const UsersAnalytics = ({isDashboard}:Props) => {
             {
                 !isDashboard && (
                     <p className={`${styles.label} px-5`}>
-                    Last 12 months analytics data (" ")
+                    Last 12 months analytics data{" "}
                     </p>
                 )
             }

@@ -4,6 +4,7 @@ import Heading from "./utils/Heading";
 import Header from "./components/Header";
 import Hero from "./components/Route/Hero";
 import Head from "next/head";
+import Courses from "./components/Route/Courses";
 
 interface Props {}
 
@@ -30,6 +31,7 @@ const Page: FC<Props> = (props) => {
         route={route}
       ></Header>
       <Hero></Hero>
+      <Courses/>
     </div>
   );
 };

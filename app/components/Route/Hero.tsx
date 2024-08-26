@@ -1,26 +1,36 @@
+import { useGetHeroDataQuery } from "@/redux/features/layout/layoutApi";
 import Image from "next/image";
 import { FC } from "react";
 import { BiSearch } from "react-icons/bi";
 
 type Props = {};
 const Hero: FC<Props> = (props) => {
+
+  const { data,refetch } = useGetHeroDataQuery("Banner", {});
+
+
   return (
     <div className="w-full mb-4 flex md:flex-row flex-col items-center ">
+      <div className="absolute top-[100px] 1000px:top-[unset] 1500px:h-[700px] 1500px:w-[700px] 1100px:h-[500px] 1100px:w-[500px] h-[50vh] hero_animation rounded-[50%] 1100px:left-[1rem] 1500px:left-[2rem]"></div>
       <div className="2xl:w-[40%] flex 2xl:min-h-screen items-center justify-end pt-[70px] 2xl:pt-[0] z-10 ">
         <Image
-          src={require("../../../public/assets/banner.png")}
+          src={data?.layout?.banner?.image?.url}
+          width={400}
+          height={400}
           alt=""
           className="max-w-[90%] w-[90%] xl:max-w-[85%] h-[auto] z-[10]"
         ></Image>
       </div>
       <div className="2xl:w-[60%] flex flex-col items-center 2xl:mt-[0px] text-center 2xl:text-left mt-[150px] ">
         <h2 className="text-[#000000c7]  text-[30px] px-3 w-full font-[600] font-Josefin py-2  dark:text-white 2xl:text-[70px] 2xl:leading-[75px] ">
-          Improve Your Online Learning Experience Better Instantly
+          {/* Improve Your Online Learning Experience Better Instantly */}
+          {data?.layout?.banner?.title}
         </h2>
         <br />
         <p className="dark:text-[#edfff4] text-[#000000ac] font-Josefin font-[600] text-[18px] xl:!w-[55%] 2xl:!w-[78%]">
-          We Have 48k+ Online Courses & 500k+ Online registered student, Find
-          your desired Courses from them.
+          {/* We Have 48k+ Online Courses & 500k+ Online registered student, Find
+          your desired Courses from them. */}
+          {data?.layout?.banner?.subTitle}
         </p>
         <br />
         <br />
