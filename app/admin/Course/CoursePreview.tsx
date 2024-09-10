@@ -80,7 +80,6 @@ const CoursePreview: FC<Props> = ({
 
         <p className="pb-1">* Source code included</p>
         <p className="pb-1">* Full lifetime access</p>
-        <p className="pb-1">* Certificate of completion</p>
         <p className="pb-3 800px:pb-1">* Premium Support</p>
       </div>
       <div className="w-full">
