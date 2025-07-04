@@ -51,7 +51,7 @@ const CoursePlayer: FC<Props> = ({ videoUrl, title }) => {
   const videoId = isYouTubeUrl(videoUrl) ? getYouTubeVideoId(videoUrl) : null;
 
   return (
-    <div style={{ paddingTop: "41%", position: "relative" }}>
+    <div style={{ paddingTop: "41%", position: "relative",overflow:"hidden" }}>
       {videoId ? (
         // YouTube Player
         <iframe

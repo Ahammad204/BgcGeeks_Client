@@ -7,6 +7,7 @@ type Props = {};
 const Hero: FC<Props> = (props) => {
 
   const { data,refetch } = useGetHeroDataQuery("Banner", {});
+  
 
 
   return (

@@ -2,13 +2,14 @@ import { styles } from "@/app/styles/style";
 import CoursePlayer from "@/app/utils/CoursePlayer";
 import Ratings from "@/app/utils/Ratings";
 import Link from "next/link";
-import React, {  useState } from "react";
+import React, { useState } from "react";
 import { IoCheckmarkDoneOutline, IoCloseOutline } from "react-icons/io5";
 import { useSelector } from "react-redux";
 import { format } from "timeago.js";
 import CourseContentList from "./CourseContentList";
 import CheckOutForm from "../Payment/CheckOutForm";
 import { Elements } from "@stripe/react-stripe-js";
+import { useLoadUserQuery } from "@/redux/features/api/apiSlice";
 
 type Props = {
   data: any;
@@ -17,7 +18,9 @@ type Props = {
 };
 
 const CourseDetails = ({ data, stripePromise, clientSecret }: Props) => {
-  const { user } = useSelector((state: any) => state.auth);
+  // const { user } = useSelector((state: any) => state.auth);
+  const { data: userData } = useLoadUserQuery(undefined, {});
+  const user = userData?.user;
   const [open, setOpen] = useState(false);
 
   const discountPercentage =
@@ -217,11 +220,7 @@ const CourseDetails = ({ data, stripePromise, clientSecret }: Props) => {
               <div className="w-ful">
                 {stripePromise && clientSecret && (
                   <Elements stripe={stripePromise} options={{ clientSecret }}>
-                    <CheckOutForm
-                      setOpen={setOpen}
-                      data={data}
-                     
-                    />
+                    <CheckOutForm setOpen={setOpen} data={data} />
                   </Elements>
                 )}
               </div>
