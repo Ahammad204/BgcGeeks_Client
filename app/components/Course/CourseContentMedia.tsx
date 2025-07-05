@@ -98,17 +98,34 @@ const CourseContentMedia = ({
     }
   }, [error, isSuccess, refetch, answerError, answerSuccess]);
 
-  const handleAnswerSubmit = () => {
-    // answer,courseId,contentId,questionId
+  // const handleAnswerSubmit = () => {
+  //   // answer,courseId,contentId,questionId
+  //   addAnswerInQuestion({
+  //     answer,
+  //     courseId: id,
+  //     contentId: data[activeVideo]._id,
+  //     questionId: questionId,
+  //   });
+  // };
+  const handleAnswerSubmit = ({
+    answer,
+    questionId,
+  }: {
+    answer: string;
+    questionId: string;
+  }) => {
     addAnswerInQuestion({
       answer,
       courseId: id,
       contentId: data[activeVideo]._id,
-      questionId: questionId,
+      questionId,
     });
   };
 
-  if (!data===null || !data[activeVideo]) return <Loader />;
+  if (!data || !Array.isArray(data) || !data[activeVideo]) {
+  return <Loader />;
+}
+
 
   return (
     <div className="w-[95%] 800px:w-[86%] py-4 m-auto">
@@ -231,8 +248,8 @@ const CourseContentMedia = ({
             <CommentReply
               data={data}
               activeVideo={activeVideo}
-              answer={answer}
-              setAnswer={setAnswer}
+              // answer={answer}
+              // setAnswer={setAnswer}
               handleAnswerSubmit={handleAnswerSubmit}
               user={user}
               setQuestionId={setQuestionId}
@@ -308,47 +325,72 @@ const CourseContentMedia = ({
   );
 };
 
+// const CommentReply = ({
+//   data,
+//   activeVideo,
+//   // answer,
+//   // setAnswer,
+//   handleAnswerSubmit,
+//   user,
+//   setQuestionId,
+//   answerCreationLoading,
+// }: any) => {
+//   return (
+//     <>
+//       <div className="w-full my-3">
+//         {data[activeVideo]?.questions.map((item: any, index: number) => (
+//           <CommentItem
+//             key={item._id || index}
+//             data={data}
+//             activeVideo={activeVideo}
+//             item={item}
+//             index={index}
+//             answer={answer}
+//             setAnswer={setAnswer}
+//             setQuestionId={setQuestionId}
+//             handleAnswerSubmit={handleAnswerSubmit}
+//             answerCreationLoading={answerCreationLoading}
+//           />
+//         ))}
+//       </div>
+//     </>
+//   );
+// };
 const CommentReply = ({
   data,
   activeVideo,
-  answer,
-  setAnswer,
   handleAnswerSubmit,
   user,
   setQuestionId,
   answerCreationLoading,
 }: any) => {
   return (
-    <>
-      <div className="w-full my-3">
-        {data[activeVideo]?.questions.map((item: any, index: number) => (
-          <CommentItem
-            key={item._id || index}
-            data={data}
-            activeVideo={activeVideo}
-            item={item}
-            index={index}
-            answer={answer}
-            setAnswer={setAnswer}
-            setQuestionId={setQuestionId}
-            handleAnswerSubmit={handleAnswerSubmit}
-            answerCreationLoading={answerCreationLoading}
-          />
-        ))}
-      </div>
-    </>
+    <div className="w-full my-3">
+      {data[activeVideo]?.questions.map((item: any, index: number) => (
+        <CommentItem
+          key={item._id || index}
+          item={item}
+          setQuestionId={setQuestionId}
+          handleAnswerSubmit={handleAnswerSubmit}
+          answerCreationLoading={answerCreationLoading}
+          user={user}
+        />
+      ))}
+    </div>
   );
 };
 
 const CommentItem = ({
   setQuestionId,
   item,
-  answer,
-  setAnswer,
+  // answer,
+  // setAnswer,
+  user,
   handleAnswerSubmit,
   answerCreationLoading,
 }: any) => {
   const [replyActive, setreplyActive] = useState(false);
+  const [answer, setAnswer] = useState("");
   return (
     <>
       <div className="my-4">
@@ -443,7 +485,14 @@ const CommentItem = ({
                 <button
                   type="submit"
                   className="absolute right-0 bottom-1 text-black dark:text-white"
-                  onClick={handleAnswerSubmit}
+                  // onClick={handleAnswerSubmit}
+                  onClick={() => {
+                    handleAnswerSubmit({
+                      answer,
+                      questionId: item._id,
+                    });
+                    setAnswer(""); // clear after submit
+                  }}
                   disabled={answer === "" || answerCreationLoading}
                 >
                   Submit
