@@ -22,7 +22,7 @@ const CourseContent = ({ id,user }: Props) => {
 
   return (
     <>
-      {isLoading ? (
+      {isLoading || !data ? (
         <Loader />
       ) : (
         <>
