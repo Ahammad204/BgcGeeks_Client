@@ -243,7 +243,7 @@ const CourseContentMedia = ({
           }
         >
           Next Lesson
-          <AiOutlineArrowRight className="ml-2  " />
+          <AiOutlineArrowRight className="ml-2" />
         </div>
       </div>
       <h1 className="pt-2 text-[25px] font-[600] dark:text-white text-black">
@@ -386,7 +386,9 @@ const CourseContentMedia = ({
                       cols={40}
                       rows={5}
                       placeholder="Write your comment..."
-                      className="outline-none bg-transparent 800px:ml-3 border border-[#ffffff57] w-[95%] 800px:w-full p-2 rounded text-[18px] font-Poppins"
+                      className="outline-none bg-transparent 800px:ml-3 border
+                       border-[#ffffff57] w-[95%] 800px:w-full p-2 rounded
+                        text-[18px] font-Poppins"
                     ></textarea>
                   </div>
                 </div>
