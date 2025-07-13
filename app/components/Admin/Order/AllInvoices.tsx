@@ -74,56 +74,7 @@ const AllInvoices = ({ isDashboard }: Props) => {
         ]),
   ];
 
-  const rows: any = [
-    {
-      id: "1",
-      userName: "ahammad",
-      userEmail: "ahammad@gmail.com",
-      title: "react",
-      price: "$100",
-      created_at: "2 days ago",
-    },
-    {
-      id: "2",
-      userName: "ahammad",
-      userEmail: "ahammad@gmail.com",
-      title: "react",
-      price: "$100",
-      created_at: "2 days ago",
-    },
-    {
-      id: "3",
-      userName: "ahammad",
-      userEmail: "ahammad@gmail.com",
-      title: "react",
-      price: "$100",
-      created_at: "2 days ago",
-    },
-    {
-      id: "4",
-      userName: "ahammad",
-      userEmail: "ahammad@gmail.com",
-      title: "react",
-      price: "$100",
-      created_at: "2 days ago",
-    },
-    {
-      id: "5",
-      userName: "ahammad",
-      userEmail: "ahammad@gmail.com",
-      title: "react",
-      price: "$100",
-      created_at: "2 days ago",
-    },
-    {
-      id: "6",
-      userName: "ahammad",
-      userEmail: "ahammad@gmail.com",
-      title: "react",
-      price: "$100",
-      created_at: "2 days ago",
-    },
-  ];
+  const rows: any = [];
 
   orderData &&
     orderData.forEach((item: any) => {
