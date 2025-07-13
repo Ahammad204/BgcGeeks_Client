@@ -14,6 +14,7 @@ import avatar from "../../public/assets/user.png";
 import { useSession } from "next-auth/react";
 import { useLogOutQuery, useSocialAuthMutation } from "@/redux/features/auth/authApi";
 import toast from "react-hot-toast";
+import { useLoadUserQuery } from "@/redux/features/api/apiSlice";
 type Props = {
   open: boolean;
   setOpen: (open: boolean) => void;
@@ -25,7 +26,8 @@ type Props = {
 const Header: FC<Props> = ({ activeItem, setOpen, route, open, setRoute }) => {
   const [active, setActive] = useState(false);
   const [openSidebar, setOpenSidebar] = useState(false);
-  const { user } = useSelector((state: any) => state.auth);
+  // const { user } = useSelector((state: any) => state.auth);
+  const {data:userData,isLoading,refetch} = useLoadUserQuery(undefined,{});
   const { data } = useSession();
   const [socialAuth, { isSuccess, error }] = useSocialAuthMutation();
   const [logout,setLogout] = useState(false);
@@ -34,13 +36,15 @@ const Header: FC<Props> = ({ activeItem, setOpen, route, open, setRoute }) => {
   });
 
   useEffect(() => {
-    if (!user) {
+    if(!isLoading){
+    if (!userData) {
       if (data) {
         socialAuth({
           email: data?.user?.email,
           name: data?.user?.name,
           avatar: data?.user?.image,
         });
+        refetch();
       }
     }
    if (data === null) {
@@ -48,10 +52,11 @@ const Header: FC<Props> = ({ activeItem, setOpen, route, open, setRoute }) => {
       toast.success("Login successfully");
     }
    }
-    if(data === null) {
+    if(data === null && !isLoading && !userData) {
       setLogout(true);
     }
-  }, [data, isSuccess, socialAuth, user]);
+  }
+  }, [data, isLoading, isSuccess, refetch, socialAuth, userData]);
 
   if (typeof window !== "undefined") {
     window.addEventListener("scroll", () => {
@@ -101,11 +106,11 @@ const Header: FC<Props> = ({ activeItem, setOpen, route, open, setRoute }) => {
                   onClick={() => setOpenSidebar(true)}
                 ></HiOutlineMenuAlt3>
               </div>
-              {user ? (
+              {userData ? (
                 <>
                   <Link href={"/profile"}>
                     <Image
-                      src={user.avatar ? user.avatar.url : avatar}
+                      src={userData?.user.avatar ? userData?.user.avatar.url : avatar}
                       alt=""
                       width={30}
                       height={30}
@@ -157,6 +162,7 @@ const Header: FC<Props> = ({ activeItem, setOpen, route, open, setRoute }) => {
               setRoute={setRoute}
               activeItem={activeItem}
               component={Login}
+              refetch={refetch}
             ></CustomModal>
           )}
         </>

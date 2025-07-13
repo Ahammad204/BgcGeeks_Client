@@ -22,6 +22,9 @@ import { BiMessage } from "react-icons/bi";
 import Loader from "../Loader/Loader";
 import { VscVerifiedFilled } from "react-icons/vsc";
 import Ratings from "@/app/utils/Ratings";
+import socketIO from "socket.io-client";
+const ENDPOINT = process.env.NEXT_PUBLIC_SOCKET_SERVER_URI || "";
+const socketId = socketIO(ENDPOINT,{transports: ["websocket"]});
 
 type Props = {
   data: any;
@@ -49,6 +52,7 @@ const CourseContentMedia = ({
   const [isReviewReply, setIsReviewReply] = useState(false);
   const [reply, setReply] = useState("");
   const [reviewId, setReviewId] = useState("");
+  
 
   const [
     addNewQuestion,
@@ -108,11 +112,23 @@ const CourseContentMedia = ({
       setQuestion("");
       refetch();
       toast.success("Question added successfully");
+      socketId.emit("notification",{
+        title:`New Question Received`,
+        message: `You have a new question in ${data[activeVideo].title}`,
+        userId: user._id,
+      })
     }
     if (answerSuccess) {
       setAnswer("");
       refetch();
       toast.success("Answer Added Successfully");
+      if(user.role !== "admin"){
+         socketId.emit("notification",{
+        title:`New Reply Received`,
+        message: `You have a new question reply in ${data[activeVideo].title}`,
+        userId: user._id,
+      })
+      }
     }
     if (error) {
       if ("data" in error) {
@@ -131,6 +147,11 @@ const CourseContentMedia = ({
       setRating(1);
       courseRefetch();
       toast.success("Review added successfully");
+       socketId.emit("notification",{
+        title:`New Review Received`,
+        message: `You have a new Review in ${data[activeVideo].title}`,
+        userId: user._id,
+      })
     }
     if (reviewError) {
       if ("data" in reviewError) {
@@ -149,18 +170,7 @@ const CourseContentMedia = ({
         toast.error(errorMessage.data.message);
       }
     }
-  }, [
-    error,
-    isSuccess,
-    refetch,
-    courseRefetch,
-    answerError,
-    answerSuccess,
-    reviewError,
-    reviewSuccess,
-    replySuccess,
-    replyError,
-  ]);
+  }, [error, isSuccess, refetch, courseRefetch, answerError, answerSuccess, reviewError, reviewSuccess, replySuccess, replyError, data, activeVideo, user._id, user.role]);
 
   // const handleAnswerSubmit = () => {
   //   // answer,courseId,contentId,questionId

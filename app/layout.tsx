@@ -12,7 +12,8 @@ import Loader from "./components/Loader/Loader";
 import socketIO from "socket.io-client";
 const ENDPOINT = process.env.NEXT_PUBLIC_SOCKET_SERVER_URI || "";
 const socketId = socketIO(ENDPOINT,{transports: ["websocket"]});
-console.log("Socket connecting to:", ENDPOINT);
+
+
 const poppins = Poppins({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
